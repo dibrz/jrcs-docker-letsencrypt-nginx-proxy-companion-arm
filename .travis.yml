@@ -13,16 +13,16 @@ script:
   tar xzf qemu-aarch64-static.tar.gz &&
   popd
 # build image
-- docker build -t dibrz/ubuntu-qemu:build .
+- docker build -t dibrz/jrcs-docker-letsencrypt-nginx-proxy-companion-arm:build .
 # test image
-- docker run dibrz/ubuntu-qemu:build uname -a
+- docker run dibrz/jrcs-docker-letsencrypt-nginx-proxy-companion-arm:build uname -a
 # push image
 - >
   if [ "$TRAVIS_BRANCH" == "master" ]; then
     docker login -u="$DOCKER_USER" -p="$DOCKER_PASS"
     TAG=$(grep "FROM " Dockerfile | sed 's/.*://')
-    docker tag dibrz/ubuntu-qemu:build dibrz/ubuntu-qemu:$TAG
-    docker tag dibrz/ubuntu-qemu:build dibrz/ubuntu-qemu:latest
-    docker push dibrz/ubuntu-qemu:$TAG
-    docker push dibrz/ubuntu-qemu:latest
+    docker tag dibrz/jrcs-docker-letsencrypt-nginx-proxy-companion-arm:build dibrz/jrcs-docker-letsencrypt-nginx-proxy-companion-arm:$TAG
+    docker tag dibrz/jrcs-docker-letsencrypt-nginx-proxy-companion-arm:build dibrz/jrcs-docker-letsencrypt-nginx-proxy-companion-arm:latest
+    docker push dibrz/jrcs-docker-letsencrypt-nginx-proxy-companion-arm:$TAG
+    docker push dibrz/jrcs-docker-letsencrypt-nginx-proxy-companion-arm:latest
   fi
