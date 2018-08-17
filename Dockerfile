@@ -1,4 +1,4 @@
-FROM arm32v6/alpine as builder
+FROM arm64v8/alpine as builder
 
 RUN apk add --update \
         openssl \
@@ -11,9 +11,11 @@ RUN git clone --branch ${LETS_ENCRYPT_VERSION} https://github.com/JrCs/docker-le
 
 
 
-FROM arm32v6/alpine
+FROM arm64v8/alpine
 
-LABEL maintainer="Yves Blusseau <90z7oey02@sneakemail.com> (@blusseau)"
+COPY tmp/qemu-aarch64-static /usr/bin/qemu-aarch64-static
+
+LABEL maintainer="Gabriel Rodrigues <gabrielsr@gmail.com> (@gabrielsr)"
 
 ENV DEBUG=false \
     DOCKER_GEN_VERSION=0.7.4 \
